@@ -55,7 +55,7 @@ class UserAPI(object):
         query = session.query(model_user.User).filter_by(name=user["name"])
         str = ''
         try:
-            user_origin = query.first()
+            user_origin = query.one()
         except exc.NoResultFound:
             str = "User dose not exist"
             return str
@@ -65,7 +65,7 @@ class UserAPI(object):
         user_password = md5.hexdigest()
 
         if user_password == user_origin.passwd:
-            if user_origin.admin == 'yes':
+            if user_origin.admin:
                 str = "Welcome, admin!"
             else:
                 str = "You are not an administrator and \

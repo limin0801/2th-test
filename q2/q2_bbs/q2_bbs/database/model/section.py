@@ -3,7 +3,7 @@ from q2_bbs.database import Base
 
 
 class Section(Base):
-    __tablename__ = 'section'
+    __tablename__ = 'sections'
     name = Column(String(20), primary_key=True)
     description = Column(Text)
 
