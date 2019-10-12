@@ -18,6 +18,24 @@ login.py # 用户登录
 
 用户主要用到创建、登录的功能。
 
+### 项目运行
+```shell
+cd q2_bbs
+
+# 安装
+# python setup.py install
+
+# 开发调试
+python setup.py develop
+
+# 启动项目
+pecan serve config.py
+```
+### 数据库注意事项
+默认使用 mysql 数据库，在 `q2_bbs/q2_bbs/database/__init__.py` 文件中可以自行修改数据库用户名、密码、数据库名称。
+
+若使用虚拟环境，默认没有安装 pymysql，可自行使用 pip 进行安装。
+
 ### API 调用
 
 #### 用户

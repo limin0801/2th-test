@@ -14,6 +14,7 @@ setup(
     author_email='',
     install_requires=[
         "pecan",
+        "sqlalchemy",
     ],
     test_suite='q2_bbs',
     zip_safe=False,
