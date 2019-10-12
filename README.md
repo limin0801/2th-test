@@ -50,7 +50,7 @@ curl -X POST http://localhost:8080/user/post \
     "user": {
         "name": "user1",
         "passwd": "test1",
-        "admin": "yes"
+        "admin": true
     }
 }'
 ```
