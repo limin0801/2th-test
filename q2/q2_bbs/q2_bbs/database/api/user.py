@@ -1,4 +1,4 @@
-from sqlalchemy.orm import exc
+from sqlalchemy import orm, exc
 
 from q2_bbs import database
 from q2_bbs.database.model import user as model_user
@@ -13,7 +13,7 @@ class UserAPI(object):
         try:
             user = query.one()
             return user
-        except exc.NoResultFound:
+        except orm.exc.NoResultFound:
             return None
 
     def get_all(self):
@@ -22,7 +22,7 @@ class UserAPI(object):
         try:
             users = query.all()
             return users
-        except exc.NoResultFound:
+        except orm.exc.NoResultFound:
             return None
 
     def add_one(self, user):
@@ -35,28 +35,30 @@ class UserAPI(object):
             session.flush()
             session.commit()
             return user
-        except Exception:
-            pass
+        except exc.IntegrityError:
+            str = "User is exist!"
+            return str
 
     def delete_one_by_username(self, username):
         session = database.get_session()
         query = session.query(
             model_user.User).filter_by(name=username)
         try:
-            user = query.first()
+            user = query.one()
             session.delete(user)
             session.flush()
             session.commit()
-        except exc.NoResultFound:
-            pass
+            return user
+        except orm.exc.NoResultFound:
+            str = "User is not exist!"
+            return str
 
     def login(self, user):
         session = database.get_session()
         query = session.query(model_user.User).filter_by(name=user["name"])
-        str = ''
         try:
             user_origin = query.one()
-        except exc.NoResultFound:
+        except orm.exc.NoResultFound:
             str = "User dose not exist"
             return str
 

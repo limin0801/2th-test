@@ -32,12 +32,9 @@ if __name__ == '__main__':
 
     try:
         user = session.query(User).filter_by(name=user_name).one()
-    except exc.NoResultFound:
-        user = None
-        print("User does not exist!")
-
-    if user:
         if user.passwd == user_password:
             print("Welcome")
         else:
             print("Your username or password is incorrect. Please try again.")
+    except exc.NoResultFound:
+        print("User does not exist!")

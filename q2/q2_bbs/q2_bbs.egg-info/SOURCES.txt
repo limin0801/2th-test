@@ -13,7 +13,7 @@ q2_bbs.egg-info/requires.txt
 q2_bbs.egg-info/top_level.txt
 q2_bbs/controllers/__init__.py
 q2_bbs/controllers/root.py
-q2_bbs/model/__init__.py
+q2_bbs/database/__init__.py
 q2_bbs/tests/__init__.py
 q2_bbs/tests/config.py
 q2_bbs/tests/test_functional.py

@@ -25,13 +25,11 @@ class UserController(object):
 
     @expose(method='DELETE', template='json')
     def delete(self, user_name):
-        self.user.delete_one_by_username(user_name)
-        return None
+        return self.user.delete_one_by_username(user_name)
 
     @expose(method='GET')
     def login(self, user):
-        result = self.user.login(user)
-        response.text = result
+        return self.user.login(user)
 
 
 class RootController(object):
@@ -53,7 +51,6 @@ class RootController(object):
 
     @expose(method='DELETE', template='json')
     def delete(self, section_name):
-        self.section.delete_one_by_sectionname(section_name)
-        return None
+        return self.section.delete_one_by_sectionname(section_name)
 
     user = UserController()

@@ -1,4 +1,4 @@
-from sqlalchemy.orm import exc
+from sqlalchemy import orm, exc
 
 from q2_bbs import database
 from q2_bbs.database.model import section as model_section
@@ -12,7 +12,7 @@ class SectionAPI(object):
         try:
             section = query.one()
             return section
-        except exc.NoResultFound:
+        except orm.exc.NoResultFound:
             return None
 
     def get_all(self):
@@ -21,7 +21,7 @@ class SectionAPI(object):
         try:
             sections = query.all()
             return sections
-        except exc.NoResultFound:
+        except orm.exc.NoResultFound:
             return None
 
     def add_one(self, section):
@@ -31,24 +31,27 @@ class SectionAPI(object):
             session.flush()
             session.commit()
             return section
-        except Exception:
-            pass
+        except exc.IntegrityError:
+            str = "Section is exist!"
+            return str
 
     def delete_one_by_sectionname(self, sectionname):
         session = database.get_session()
         query = session.query(
             model_section.Section).filter_by(name=sectionname)
-        reply = input(
-            "Are you sure to delete the section? (y/n)")
-        if reply == 'y':
-            try:
-                section = query.first()
-                session.delete(section)
-                session.flush()
-                session.commit()
-            except exc.NoResultFound:
-                pass
-        elif reply == 'n':
-            return None
-        else:
-            print("Please input y or n")
+        while True:
+            reply = input("Are you sure to delete the section? (y/n)")
+            if reply == 'y':
+                try:
+                    section = query.one()
+                    session.delete(section)
+                    session.flush()
+                    session.commit()
+                    return section
+                except orm.exc.NoResultFound:
+                    str = "Section is not exist!"
+                    return str
+            elif reply == 'n':
+                return None
+            else:
+                print("Please input y or n")
