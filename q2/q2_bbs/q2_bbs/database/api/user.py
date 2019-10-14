@@ -36,7 +36,7 @@ class UserAPI(object):
             session.commit()
             return user
         except exc.IntegrityError:
-            str = "User is exist!"
+            str = "User already exists!"
             return str
 
     def delete_one_by_username(self, username):
@@ -50,7 +50,7 @@ class UserAPI(object):
             session.commit()
             return user
         except orm.exc.NoResultFound:
-            str = "User is not exist!"
+            str = "User does not exist!"
             return str
 
     def login(self, user):
@@ -59,7 +59,7 @@ class UserAPI(object):
         try:
             user_origin = query.one()
         except orm.exc.NoResultFound:
-            str = "User dose not exist"
+            str = "User dose not exist!"
             return str
 
         md5 = hashlib.md5()

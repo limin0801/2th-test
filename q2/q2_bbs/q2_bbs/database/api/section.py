@@ -32,7 +32,7 @@ class SectionAPI(object):
             session.commit()
             return section
         except exc.IntegrityError:
-            str = "Section is exist!"
+            str = "Section already exists!"
             return str
 
     def delete_one_by_sectionname(self, sectionname):
@@ -40,7 +40,8 @@ class SectionAPI(object):
         query = session.query(
             model_section.Section).filter_by(name=sectionname)
         while True:
-            reply = input("Are you sure to delete the section? (y/n)")
+            reply = input(
+                "Are you sure to delete the section %s? (y/n)" % sectionname)
             if reply == 'y':
                 try:
                     section = query.one()
@@ -49,7 +50,7 @@ class SectionAPI(object):
                     session.commit()
                     return section
                 except orm.exc.NoResultFound:
-                    str = "Section is not exist!"
+                    str = "Section does not exist!"
                     return str
             elif reply == 'n':
                 return None
