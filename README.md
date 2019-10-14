@@ -23,7 +23,7 @@ login.py # 用户登录
 cd q2_bbs
 
 # 安装
-# python setup.py install
+python setup.py install
 
 # 开发调试
 python setup.py develop
